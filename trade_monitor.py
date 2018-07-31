@@ -30,6 +30,10 @@ class Data(object):
             # ,'Journeyman Cartographers Sextant': '46'
             # ,'Master Cartographers Sextant': '47'
         }
+        self.blacklist = [
+            'Vuglji๑Scion๑For๑Me๑',
+            'FrosteeeBallz'
+        ]
 
     def load(self):
         #TODO:
@@ -41,6 +45,7 @@ class Monitor(object):
     def __init__(self):
         db = Data()
         self.data = db.d
+        self.blacklist = set(db.blacklist)
 
     def search(self, a, b, league='Incursion'):
         attr = ['data-ign', 'data-sellvalue', 'data-buyvalue']
@@ -53,7 +58,7 @@ class Monitor(object):
         results = [(eval(x[attr[1]]+'/'+x[attr[2]]),"@" + x[attr[0]] + " Hi, I'd like to buy your "
                     + str(int(eval(x[attr[1]]))) + " " + a + " for my "
                     + str(int(eval(x[attr[2]]))) + " " + b + " in Incursion.")
-                   for x in soup.find_all("div", class_='displayoffer')]
+                   for x in soup.find_all("div", class_='displayoffer') if x[attr[0]] not in self.blacklist]
         return results
 
     def find_profit_2(self, c='chaos', rate=1.04, num=5):
@@ -102,4 +107,4 @@ class Monitor(object):
 
 if __name__=="__main__":
     m = Monitor()
-    m.find_profit_2(rate=1.04)
+    m.find_profit_2(rate=1.03)
