@@ -25,7 +25,9 @@ class Data(object):
             'Orb of Transmutation': '22',
             'Orb of Augmentation': '23',
             'Silver Coin': '35'
-
+            # ,'Apprentice Cartographers Sextant': '45'
+            # ,'Journeyman Cartographers Sextant': '46'
+            # ,'Master Cartographers Sextant': '47'
         }
 
     def load(self):
